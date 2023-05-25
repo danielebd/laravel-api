@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('test', [ProjectConcroller::class, 'index'])->name('test');
+Route::get('projects', [ProjectConcroller::class, 'index'])->name('projects');
