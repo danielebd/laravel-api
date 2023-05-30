@@ -8,21 +8,29 @@ use Illuminate\Http\Request;
 
 class ProjectConcroller extends Controller
 {
-    public function index(){
-        $projects = Project::with('technologies', 'type')->paginate(4);
+    public function index()
+    {
+        $projects = Project::with('technologies', 'type')->paginate(6);
         return response()->json([
-        'success' => true,
-        'results' => $projects
-    ]);
+            'success' => true,
+            'results' => $projects
+        ]);
     }
 
-    public function show(string $slug){
-        $project = Project::where('slug', $slug)->with('technologies', 'type')->first();
+    public function show(int $id)
+    {
+        $project = Project::find($id)->with('technologies', 'type')->first();
 
-        return response()->json([
-        'success' => true,
-        'results' => $project
-    ]);
+        if ($project) {
+            return response()->json([
+                'success' => true,
+                'results' => $project
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'results' => null
+            ], 404);
+        }
     }
-    
 }
